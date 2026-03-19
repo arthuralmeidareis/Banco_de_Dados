@@ -1,0 +1,98 @@
+-- Lista de exercícios SELECT -- 
+-- 1 - Liste todos os setores da empresa.
+select*from empregado;
+
+--2 - Quais são os funcionários da empresa?--
+select nome_empregado
+from empregado;
+
+--3 - Liste todos os dados dos dependentes.
+select*from dependente;
+--4 De quais tipos os dependentes podem ser?
+select cod_dependente 
+from dependente;
+
+--5  Quais os setores de produção da empresa?
+select cod_setor, nome_setor
+from setor;
+
+-- 6 Liste apenas o nome e a data de nascimento dos dependentes.
+select nome_dependente dt_nascimento
+from dependente;
+
+-- 7 - Refaça o exercício anterior ordenando do mais novo para o mais velho.
+select nome_dependente dt_nascimento
+from dependente
+order by dt_nascimento;
+
+ -- Qual o dependente de código 5?
+ select nome_dependente
+ from dependente
+ where cod_dependente = '5';
+ 
+ --9 Quais os dependentes do 'Homer Simpson'?
+ select nome_empregado cod_empregado
+ from empregado
+ where lower(nome_empregado) = 'homer simpson';  --buscando os dados da tabela empregado
+ select nome_dependente
+ from dependente 
+ where cod_empregado = '1';
+ 
+ --10 - De quem o 'Zezé Pêra' é dependente?
+select cod_empregado nome_empregado 
+from dependente
+where lower (nome_dependente) like  'zeze pêra';
+
+--11 - Quais dependentes têm o nome começado pela letra 'M'?
+select nome_dependente
+from dependente
+where nome_dependente like 'm%';
+
+--12 - Quais os funcionários tem o nome terminado por 'son'? 
+select nome_empregado
+from empregado
+where nome_empregado like '%son';
+
+--13 - Quais funcionários NÃO têm o nome iniciado por 'Pat'? 
+select nome_empregado
+from empregado
+where nome_empregado  not like 'Pat%';
+
+--14 - Qual funcionário tem o salário inferior ou igual a R$ 1000,00? 
+select nome_empregado 
+from empregado
+where salario <= 1000;
+
+--15 - Qual empregado tem salário entre R$2000 e R$3000?
+select nome_empregado 
+from empregado
+where salario between 2000 and 3000;    --posso usar a propriedade or--
+
+--16 – Qual o funcionário foi admitido em 30/04/2012? 
+select nome_empregado
+from empregado
+where admissao like '2012-03-04';
+
+--17 - Quais os funcionários foram admitidos no mês de maio? 
+select nome_empregado 
+from empregado
+where admissao like '%04';
+
+--18 - Quais empregados foram admitidos entre 10/05/2012 e 30/05/2012?
+select nome_empregado
+from empregado
+where admissao  between '10-05-2012' and '30-05-2012';
+
+--19 - Quais dependentes nasceram em 2004? 
+select nome_dependente
+from dependente
+where extract (year from DT_NASCIMENTO) = 2004;
+
+--20 - Qual o menor salário? 
+select min (salario)
+from empregado;
+
+--21 - Qual a média salarial da empresa? 
+select  avg (salario)
+from empregado;
+ -- parei no 22--
