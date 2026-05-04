@@ -1,0 +1,50 @@
+--1 – Em qual mês o ator Josh Gad faz aniversário?
+select nome_ator, dt_nasc_ator 
+from tb_ator
+where lower (nome_ator) = 'josh gad';
+--2 - Qual é o nome do filme com a maior data de lançamento?
+select nome_filme
+from tb_filme
+where dt_lancamento = (select max(dt_lancamento) from tb_filme);
+--3 - Qual é o nome do filme com a menor duração?
+select nome_filme
+from tb_filme
+where duracao = (select min(duracao) from tb_filme);
+--4 - Qual é o nome do filme mais barato?
+select nome_filme
+from tb_filme
+where custo = (Select min (custo) from tb_filme);
+--5 - Qual é o nome dos atores que não participaram do filme 'Velozes e Furiosos 7'?
+select  distinct nome_ator, nome_filme
+from tb_filme f, tb_lista_ator l, tb_ator a
+where f.cod_filme = l.cod_filme
+and l.cod_ator = a.cod_ator;
+--6 - Quais atores participam do filme mais longo?
+select distinct nome_ator
+from tb_ator a, tb_lista_ator l, tb_filme f
+where f.cod_filme = l.cod_filme
+and l.cod_ator = a.cod_ator
+and duracao = (select max (duracao) from tb_filme);
+--7 - Quais atores participaram dos filmes em que o ator Josh Gad participou?
+select nome_filme
+from tb_filme f , tb_lista_ator l, tb_ator a 
+where f.cod_filme = l.cod_filme
+and l.cod_ator = a.cod_ator;
+--8 - Quais atores participaram dos filmes em que o ator Josh Gad NÃO participou?
+select nome_ator
+from tb_ator a , tb_lista_ator l
+where a.cod_ator = l.cod_ator
+and cod_filme not in (select cod_filme
+from tb_lista_ator 
+where cod_filme not in (select cod_filme from tb_ator a,tb_lista_ator f 
+where a.cod_ator = l.cod_ator
+and lower (nome_ator) = 'josh gad'));
+--9 - Qual ator participou do filme 'Os Vingadores' e não participou do filme
+--'Vingadores: Guerra Infinita'?
+select nome_ator, nome_filme
+from tb_ator a , tb_lista_ator l, tb_filme f
+where a.cod_ator = l.cod_ator
+and f.cod_filme = l.cod_filme
+and lower (nome_filme) = 'vingadores: guerra infinita';
+--10 - Qual ator participou do filme lançado em 2019 e não participou do filme lançado em
+--2012?
